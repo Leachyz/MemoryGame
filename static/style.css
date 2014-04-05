@@ -1,0 +1,82 @@
+body 
+{
+background: #101010 ;
+}
+
+.sideBox 
+{
+width: 540px;
+height: 230px;
+}
+.card
+{
+width: 110px;
+height: 160px;
+float: left;
+margin: 10px;
+    position: relative;
+    -webkit-perspective: 700;
+    overflow: visible; 	
+}
+
+.card > div{
+width: 110px;
+height: 160px;
+border-radius: 8px;
+}
+ 
+
+/* layout & transform*/
+/*.card {
+    position: relative;
+    -webkit-perspective: 700;
+    overflow: visible;
+}
+*/
+
+.face-fwd {
+    -webkit-transform-style: preserve- 3 d;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all ease-in-out 0.4s;
+    z-index: 900;
+background: url("card_image.jpg") no-repeat green;
+box-shadow: 5px 5px 13px #FFFF66 ;
+}
+.face-back {
+    position: absolute; top: 0; left: 0;
+    z-index: 800;
+    background: white;
+    -webkit-transform: rotatey(-180deg);
+    -webkit-transform-style: preserve- 3 d;
+    -webkit-backface-visibility: hidden;
+    -webkit-transition: all ease-in-out 0.4s;
+    opacity: 0;
+box-shadow: 3px 3px 15px #FFFF66;
+} 	  	
+.card.click .face-fwd {
+    z-index: 900;
+    -webkit-transform: rotatey(180deg);
+    opacity: 0;
+}
+.card.click .face-back {
+    z-index: 1000;
+    -webkit-transform: rotatey(0deg);
+    opacity: 1;
+} 
+.suite {
+text-align: center;
+font-size: 60pt;
+font-family: Times;
+position: absolute;
+top: 30px;
+left: 30px;
+}
+.rank {
+text-align: center;
+font-size: 14pt;
+font-family: Times;
+position: absolute;
+top: 5px;
+left: 6px;
+}
+
