@@ -23,6 +23,8 @@ margin: 10px;
 width: 110px;
 height: 160px;
 border-radius: 8px;
+    position: absolute; 
+    top: 0; left: 0;
 }
  
 
@@ -43,7 +45,6 @@ background: url("card_image.jpg") no-repeat green;
 box-shadow: 5px 5px 13px #FFFF66 ;
 }
 .face-back {
-    position: absolute; top: 0; left: 0;
     z-index: 800;
     background: white;
     -webkit-transform: rotatey(-180deg);
@@ -53,12 +54,12 @@ box-shadow: 5px 5px 13px #FFFF66 ;
     opacity: 0;
 box-shadow: 3px 3px 15px #FFFF66;
 } 	  	
-.card.click .face-fwd {
+.card.click .face-fwd, .card.match .face-fwd {
     z-index: 900;
     -webkit-transform: rotatey(180deg);
     opacity: 0;
 }
-.card.click .face-back {
+.card.click .face-back,  .card.match .face-back{
     z-index: 1000;
     -webkit-transform: rotatey(0deg);
     opacity: 1;
@@ -79,4 +80,7 @@ position: absolute;
 top: 5px;
 left: 6px;
 }
-
+.r
+{
+color: red;
+}

@@ -7,13 +7,18 @@
 # using cloud.google.com/console use the "project id" for your application
 # id.
 application: rl620012821
-version: lab2
+version: project1
 runtime: python27
 api_version: 1
 threadsafe: yes
 
 # Handlers define how to route requests to your application.
 handlers:
+- url: /(.*\.(appcache|manifest))
+  mime_type: text/cache-manifest
+  static_files: \1
+  upload: (.*\.(appcache|manifest))
+  expiration: "0m"
 
 # App Engine serves and caches static files contained in the listed directories
 # (and subdirectories). Uncomment and set the directory as needed.

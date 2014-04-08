@@ -1,17 +1,21 @@
-var numTurns = 0;
+var audioElement = document.getElementById("audio");
+var supportStorage = false;
+if(typeof(Storage)!==undefined)
+	supportStorage = true;
+
 
 function shuffleCards(o){
     for(var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
     return o;
-};
+}
 
 var createDeck = function() {
 // based on code from http://www.brainjar.com/js/cards/default2.asp
   var ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9",
                         "10", "J", "Q", "K"];
-  var suits = ["♣","♦","♥","♠"]; 
+  var suits = ["♣","<span class='r'>♦</span>","<span class='r'>♥</span>","♠"]; 
  // var j, k, 
-var index=0;
+  var index=0;
   var pack_size = 16;
 
   // Set array of cards.
@@ -22,25 +26,15 @@ var index=0;
   
 
   // Fill the array with 'n' packs of cards.
-/*
-  while (index < pack_size){
-    for (j = 0; j < suits.length; j++){
-       for (k = 0; k < ranks.length; k++){
-          console.log("k:",k,"index:",index);
-          cards[index] = {rank:ranks[k], suite:suits[j]};
-          index++;
-          }
-       }
-    }
-*/
-while(index < pack_size){
+
+  while(index < pack_size){
 	rank_index = Math.floor(Math.random() * 13);
-console.log(rank_index);
+        console.log(rank_index);
 	suite_index = Math.floor(Math.random() * 4);
 	cards[index++] = {rank:ranks[rank_index], suite:suits[suite_index]};
 	cards[index++] = {rank:ranks[rank_index], suite:suits[suite_index]};
-}
-cards = shuffleCards(cards);
+  }
+  cards = shuffleCards(cards);
   console.log(cards.length);
   return cards;
 }
@@ -67,21 +61,28 @@ showDeck(deck);
 
 
 var num_click = 0;
-var clicked_cards = [];
+var numTurns = 0;
 var flip = function(ccard){
-	ccard.setAttribute("class", "card click");	
-	clicked_cards[num_click] = ccard;
 	num_click++;
+	ccard.setAttribute("class", "card click");
+	clicked = document.querySelectorAll(".card.click");     
 	if(num_click%2 == 0){
-		if(clicked_cards[0].innerHTML == clicked_cards[1].innerHTML){
-			document.querySelectorAll(".card.click")[0].setAttribute("class", "card show");
-			document.querySelectorAll(".card.click")[1].setAttribute("class", "card show");
+		if(clicked[0].innerHTML == clicked[1].innerHTML){	
+			alert("Match");
+			clicked[0].setAttribute("class", "card match");
+			clicked[1].setAttribute("class", "card match");
 		}else{	
-			document.querySelectorAll(".card.click")[0].setAttribute("class", "card");
-			document.querySelectorAll(".card.click")[1].setAttribute("class", "card");
+			alert("No Match");
+			clicked[0].setAttribute("class","card");
+			clicked[1].setAttribute("class","card");
 		}
-		clicked_cards = []
 		num_click = 0;
+		numTurns++;
+		if (numTurns == 24) {
+			alert("Game Over! Start new game.");
+			location.reload();
+		}
 	}
+	
 }
 

@@ -1,0 +1,19 @@
+CACHE MANIFEST
+
+CACHE:
+
+# html files
+cards
+
+# js files
+static/cards.js
+
+# css files
+static/style.css
+
+# sound files
+#static/sound/flip.mp3
+#static/sound/won.mp3
+
+# image files
+static/card_image.jpg
