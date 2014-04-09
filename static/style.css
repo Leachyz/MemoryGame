@@ -3,10 +3,11 @@ body
 background: #101010 ;
 }
 
-.sideBox 
+#sideBox 
 {
 width: 540px;
 height: 230px;
+float: left;
 }
 .card
 {
@@ -83,4 +84,69 @@ left: 6px;
 .r
 {
 color: red;
+}
+
+.player_info {
+float: right;
+height: 340px;
+width: 250px;
+color: white;
+text-align: center;
+border: 1px solid #FFFF66;
+background: #101010;
+}
+
+div.player_info {
+border-radius: 10px;
+}
+
+div.player_info p {
+border-radius: 7px;
+}
+
+div.player_info p#turns_instruction {
+border-radius: 5px;
+}
+
+#player_photo {
+height: 150px;
+width: 150px;
+}
+
+#photo {
+position: relative;
+}
+
+#player_instruction{
+color: white;
+background: #202020;
+border-radius: 3px;
+margin-left: 40px;
+margin-right: 40px;
+border: 1px solid #FFFF66;
+}
+
+#pic_instruction{
+top: 0;
+background: #202020; 
+padding: 5px;
+color: white;
+font-weight: none;
+margin-top: 20px;;
+margin-left: 10px;;
+margin-right: 10px;
+border: 1px solid #FFFF66;
+} 
+
+#turns_instruction {
+margin: 20px;
+border: 1px solid #FFFF66;
+background: #202020;
+}
+#save_game {
+color: white;
+background: #202020;
+border-radius: 4px;
+margin-top: -2px;
+border: 1px solid #FFFF66;
 }
