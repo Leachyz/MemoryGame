@@ -15,9 +15,10 @@ width: 110px;
 height: 160px;
 float: left;
 margin: 10px;
-    position: relative;
-    -webkit-perspective: 700;
-    overflow: visible; 	
+position: relative;
+-webkit-perspective: 700;
+overflow: visible;
+cursor: crosshair;	
 }
 
 .card > div{
@@ -94,17 +95,18 @@ color: white;
 text-align: center;
 border: 1px solid #FFFF66;
 background: #101010;
-}
-
-div.player_info {
 border-radius: 10px;
 }
 
-div.player_info p {
+/*div.player_info {
+border-radius: 10px;
+}*/
+
+div.player_info div {
 border-radius: 7px;
 }
 
-div.player_info p#turns_instruction {
+#turns_instruction {
 border-radius: 5px;
 }
 
@@ -143,10 +145,20 @@ margin: 20px;
 border: 1px solid #FFFF66;
 background: #202020;
 }
+
 #save_game {
 color: white;
 background: #202020;
 border-radius: 4px;
 margin-top: -2px;
+border: 1px solid #FFFF66;
+}
+
+#reset_game {
+color: white;
+background: #202020;
+border-radius: 4px;
+margin-top: -2px;
+/*margin-left: 2px;*/
 border: 1px solid #FFFF66;
 }

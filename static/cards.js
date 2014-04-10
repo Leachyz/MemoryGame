@@ -5,6 +5,9 @@ var userinfo = {"username": null, "turn": 24, "photo": null};
 var userturn = document.querySelector("#player_turns");
 var userpic = document.querySelector("#pic_instruction");
 var cardcontainer = document.querySelector("#sideBox");
+var num_click = 0;
+var numTurns = 24;
+var toMatch = 8;
 
 function saveData(userinfo){
     if(supportStorage) 
@@ -13,10 +16,11 @@ function saveData(userinfo){
 
 if(typeof(Storage)!==undefined) {
 	supportStorage = true;
-    	if(localStorage.player === undefined) 
+    	if(localStorage.player === undefined){ 
         	saveData(userinfo);
-    	else{
-        	userinfo = JSON.parse(localStorage.player); 
+	}else{
+        	userinfo = JSON.parse(localStorage.player);
+		numTurns = userinfo.turn;
         	if(userinfo.username != null) 
 			username.innerHTML = "Hi, "+userinfo.username+"!";
 		if(userinfo.photo != null) userpic.setAttribute("src", userinfo.photo); 
@@ -41,9 +45,9 @@ function playSound(choice){
 document.onload = function(){
 	if(userinfo.username != null) 
 		username.innerHTML = userinfo.username;
-	displayTurn(userinfo.turn);
-    	if(userinfo.photo != null) userpic.setAttribute("src", userinfo.photo);   
-   	saveData(userinfo); 
+    	if(userinfo.photo != null) 
+		userpic.setAttribute("src", userinfo.photo);
+		/*alert("Test1");*/
 }
 
 username.onclick=function(){
@@ -55,20 +59,37 @@ username.onclick=function(){
 }
 
 userpic.onclick=function(){
-	if(userinfo.username != null) 
-		var player = userinfo.username;
-	var photo = prompt(player+ ", please enter url for profile pic.");
-	userinfo.photo = photo;
+	if(userinfo.username != undefined) 
+		var player = userinfo.username,
+	uPhoto = prompt(player+ ", please enter url for profile pic.");
+	else{
+		var photo = prompt("Player, please enter url for profile pic.");
+	}
+	userinfo.photo = uPhoto;
 	saveData(userinfo);
-	if(photo != null) this.setAttribute("src", photo);
+	if(uPhoto != null) document.querySelector("#player_photo").setAttribute("src", uPhoto);
 }
 document.querySelector("#save_game").onclick = function(){
 	if(supportStorage){
+/*console.log(cardcontainer.innerHTML);*/
 		localStorage.gamedata = cardcontainer.innerHTML;
+		localStorage.matches = toMatch;
+		saveData(userinfo);
+		alert("Save game successful!\n\nGet 'em next time!");
 	}else{
 		alert("Local storage is not available. Try again later.");
 	}
 }
+function restart(){
+	userinfo.turn = 24;
+	localStorage.removeItem("gamedata");
+	localStorage.removeItem("matches");
+	
+	saveData(userinfo);
+	location.reload();
+}
+document.querySelector("#reset_game").onclick =  function(){restart()};
+
 
 
 if (supportStorage && !isNaN(userinfo.turn)) {
@@ -109,17 +130,17 @@ var createDeck = function() {
 	cards[index++] = {rank:ranks[rank_index], suite:suits[suite_index]};
   }
   cards = shuffleCards(cards);
-  console.log(cards.length);
+  /*console.log(cards.length);*/
   return cards;
 }
 
 var showCards = function(cardJSON) {    
-card = document.createElement("p");
-card.innerHTML = "<div class='face-fwd'></div><div class='face-back'><span class='suite'>"+cardJSON.suite+"</span><span class='rank'>"+cardJSON.rank+"</span></div>";
-card.className = "card";
-card.setAttribute ("onclick", "flip(this)");
-console.log(card);
-document.querySelector("#sideBox").appendChild(card);
+	card = document.createElement("div");
+	card.innerHTML = "<div class='face-fwd'></div><div class='face-back'><span class='suite'>"+cardJSON.suite+"</span><span class='rank'>"+cardJSON.rank+"</span></div>";
+	card.className = "card";
+	card.setAttribute ("onclick", "flip(this)");
+	console.log(card);
+	document.querySelector("#sideBox").appendChild(card);
 }
 
 var showDeck = function(deck){
@@ -130,17 +151,19 @@ var showDeck = function(deck){
     }
 }
 
-if(supportStorage && localStorage.gamedata != undefined){
-	cardcontainer.innerHTML = localStorage.gamedata;
+/*loads saved data*/ 
+if(supportStorage && localStorage.gamedata != undefined && localStorage.matches != undefined){
+	/*console.log(localStorage.gamedata);*/
+	cardcontainer.innerHTML = ""+ 	localStorage.gamedata;
+	toMatch = parseInt(localStorage.matches);
 }else{
 	var deck = createDeck();
 	showDeck(deck);
+		alert("This is a Memory Game - Ramoy style!\nClick a card to view the card then try to find a match.\nYou have 24 moves in which to achieve this.\nHave fun!\n\nNote: Wait 'til cards have flipped back over before choosing another.");
 }
 
 
-var num_click = 0;
-var numTurns = 24;
-var toMatch = 8;
+
 var flip = function(ccard){
 	num_click++;
 	ccard.setAttribute("class", "card click");
@@ -153,6 +176,7 @@ var flip = function(ccard){
 			clicked[0].setAttribute("class", "card match");
 			clicked[1].setAttribute("class", "card match");
 		toMatch--;
+		clicked = [];
 		}else{	
 			setTimeout(function(){
 			playSound(3);
@@ -164,16 +188,19 @@ var flip = function(ccard){
 		numTurns--;		
 		if (numTurns == 0) {
 			alert("Game Over! Start new game.");
-			location.reload();
+			restart();
+			/*alert("Click \"Restart\" to start a new game.");*/
 		}
 		if (toMatch == 0) {
 			playSound(4);
-			setTimeout(function() {alert("Good going, you've won!")}, 1000);
+			setTimeout(function() {alert("Good going, you've won!"); restart();}, 1000);
+			
 		}
 	userinfo.turn = numTurns;
-	savaData(userinfo);
 	userturn.innerHTML = numTurns;
 	}
 	
 }
 
+/*Example1: Name: Jestina, url for pic: https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-ash4/t1.0-9/1487362_10152778410190550_2848720520749792450_n.jpg */
+/*Example2: Name: Ramoy, url for pic: http://www.bubblews.com/assets/images/news/801720367_1393523485.jpg */

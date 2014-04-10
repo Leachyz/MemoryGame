@@ -13,7 +13,7 @@ app = Flask(__name__)
 @app.route('/')
 def hello():
     """Return a friendly HTTP greeting."""
-    return 'Hello World! <br><br> Sincerely, Lab2'
+    return 'Hello World! <br><br> Sincerely, Project3'
 
   
 @app.route('/cards')
