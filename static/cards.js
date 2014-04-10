@@ -204,3 +204,5 @@ var flip = function(ccard){
 
 /*Example1: Name: Jestina, url for pic: https://fbcdn-sphotos-b-a.akamaihd.net/hphotos-ak-ash4/t1.0-9/1487362_10152778410190550_2848720520749792450_n.jpg */
 /*Example2: Name: Ramoy, url for pic: http://www.bubblews.com/assets/images/news/801720367_1393523485.jpg */
+/*Example3: Name: Kevin, url for pic: http://www.gospelreggae.com/images/albums/349.jpg */
+
