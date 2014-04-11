@@ -10,10 +10,18 @@
 			<source src="/static/sound/flip.mp3" type="audio/mp3">
 			Your browser does not support the audio element.
 		</audio>
-		<div id="sideBox">
+		<div id="sideBoxWrapper" style="display: none">
+			<div id='player_options'>
+			<input onclick= 'setPlayerMode(1)' type='button' value="Single Player" class="player_option" />
+			<input onclick= 'setPlayerMode(2)' type='button' value="VS Mode" class="player_option" />		
+			</div>
+		</div>
 
-			
-			
+		<div id="sideBox"></div>
+		
+		<div class="options">
+			<input type="button" id="save_game" value="Save Game" />
+			<input type="button" id="reset_game" value="Reset Game" />
 		</div>
 		<div class="player_info">
 			<p id="player_instruction">Click here to set name.</p>
@@ -22,8 +30,6 @@
 			<p id="pic_instruction">Click here to change profile pic.</p>
 			</div>
 			<p id="turns_instruction">Number of turns remaining: <span id="player_turns"></span></p>
-			<input type="button" id="save_game" value="Save Game" />
-			<input type="button" id="reset_game" value="Reset Game" />
 		</div>
 		<script src="{{url_for('static', filename='cards.js')}}"></script>
 	</body>

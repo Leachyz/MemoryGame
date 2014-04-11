@@ -96,13 +96,15 @@ color: red;
 
 .player_info {
 float: right;
-height: 340px;
+height: 310px;
 width: 250px;
 color: white;
 text-align: center;
 border: 1px solid #FFFF66;
 background: #101010;
 border-radius: 10px;
+clear: right;
+margin-top: 15px;
 }
 
 /*div.player_info {
@@ -169,4 +171,31 @@ border-radius: 4px;
 margin-top: -2px;
 /*margin-left: 2px;*/
 border: 1px solid #FFFF66;
+}
+
+.options {
+float: right;
+top: 0;
+background: #202020;
+color: white;
+font-weight: none;
+margin-top: 7px;
+/*margin-left: 10px;*/
+margin-right: 35px;
+border: none;/*1px solid #FFFF66;*/
+border-radius: 5px;
+} 
+
+
+
+#player_options .play_option:hover {
+background: black;
+}
+
+[turn="active"]{
+    background: green !important;
+}
+
+[turn="inactive"]{
+    background: rgba(0,0,0,0.9) !important;
 }
