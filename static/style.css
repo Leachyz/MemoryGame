@@ -94,9 +94,19 @@ left: 6px;
 color: red;
 }
 
-.player_info {
+#player_details {
 float: right;
-height: 310px;
+clear: right;
+height: 700px;
+width: 250px;
+color: white;
+text-align: center;
+background: #101010;
+}
+
+.player1_info {
+float: right;
+height: 305px;
 width: 250px;
 color: white;
 text-align: center;
@@ -107,19 +117,63 @@ clear: right;
 margin-top: 15px;
 }
 
-/*div.player_info {
+.player2_info {
+float: right;
+height: 310px;
+width: 250px;
+color: white;
+text-align: center;
+border: 1px solid #FFFF66;
+background: #101010;
 border-radius: 10px;
+clear: right;
+}
+
+/*.player2_info p{
+display: block;
+-webkit-margin-before: 1em;
+-webkit-margin-after: 1em;
+-webkit-margin-start: 0px;
+-webkit-margin-end: 0px;
 }*/
 
 div.player_info div {
 border-radius: 7px;
 }
 
-#turns_instruction {
+#player1_turns {
+margin-top: 19px;
+margin-left: 15px;
+margin-right: 15px;
+border: 1px solid #FFFF66;
+background: #202020;
 border-radius: 5px;
 }
 
-#player_photo {
+#player1_matches {
+margin-top: 19px;
+margin-left: 35px;
+margin-right: 35px;
+border: 1px solid #FFFF66;
+background: #202020;
+border-radius: 5px;
+}
+
+#player2_matches {
+margin-top: 19px;
+margin-left: 35px;
+margin-right: 35px;
+border: 1px solid #FFFF66;
+background: #202020;
+border-radius: 5px;
+}
+
+#player1_photo {
+height: 150px;
+width: 150px;
+}
+
+#player2_photo {
 height: 150px;
 width: 150px;
 }
@@ -128,16 +182,27 @@ width: 150px;
 position: relative;
 }
 
-#player_instruction{
+#player1_instruction{
 color: white;
 background: #202020;
 border-radius: 4px;
-margin-left: 40px;
-margin-right: 40px;
+margin-left: 15px;
+margin-right: 15px;
 border: 1px solid #FFFF66;
+cursor: pointer;
 }
 
-#pic_instruction{
+#player2_instruction{
+color: white;
+background: #202020;
+border-radius: 4px;
+margin-left: 15px;
+margin-right: 15px;
+border: 1px solid #FFFF66;
+cursor: pointer;
+}
+
+#pic1_instruction{
 top: 0;
 background: #202020; 
 padding: 5px;
@@ -148,12 +213,21 @@ margin-left: 10px;;
 margin-right: 10px;
 border: 1px solid #FFFF66;
 border-radius: 5px;
-} 
+cursor: pointer;
+}
 
-#turns_instruction {
-margin: 20px;
+#pic2_instruction{
+top: 0;
+background: #202020; 
+padding: 5px;
+color: white;
+font-weight: none;
+margin-top: 20px;;
+margin-left: 10px;;
+margin-right: 10px;
 border: 1px solid #FFFF66;
-background: #202020;
+border-radius: 5px;
+cursor: pointer;
 }
 
 #save_game {
@@ -162,6 +236,7 @@ background: #202020;
 border-radius: 4px;
 margin-top: -2px;
 border: 1px solid #FFFF66;
+cursor: pointer;
 }
 
 #reset_game {
@@ -171,6 +246,7 @@ border-radius: 4px;
 margin-top: -2px;
 /*margin-left: 2px;*/
 border: 1px solid #FFFF66;
+cursor: pointer;
 }
 
 .options {
@@ -186,16 +262,37 @@ border: none;/*1px solid #FFFF66;*/
 border-radius: 5px;
 } 
 
+#vs {
+margin-top: 0 auto;
+width: 100%;
+clear: right;
 
-
-#player_options .play_option:hover {
-background: black;
 }
 
-[turn="active"]{
+.options_button {
+border-radius: 4px;
+background: white;
+height: 21px;
+width: 93px;
+}
+
+#player_options .options_button:hover {
+background: black;
+border: 1px solid #FFFF66;
+color: white;
+}
+
+#hold_displayOptions {
+margin: 375 auto;
+width: 15%;
+}
+
+[player_turn="active"]{
     background: green !important;
 }
 
-[turn="inactive"]{
+[playr_turn="inactive"]{
     background: rgba(0,0,0,0.9) !important;
 }
+
+

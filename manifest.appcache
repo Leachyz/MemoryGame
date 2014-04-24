@@ -3,7 +3,7 @@ CACHE MANIFEST
 CACHE:
 
 # html files
-cards
+templates/cards.html
 
 # js files
 static/cards.js
@@ -12,8 +12,15 @@ static/cards.js
 static/style.css
 
 # sound files
-#static/sound/flip.mp3
-#static/sound/won.mp3
+static/sounds/complete.mp3
+static/sounds/matched.mp3
+static/sounds/turned.mp3
+static/sounds/unmatched.mp3
 
 # image files
 static/card_image.jpg
+static/default_photo.png
+static/example1_jestina.jpg
+static/example2_ramoy.jpg
+static/example3_kevin.jpg
+static/example4_nicki.jpg
