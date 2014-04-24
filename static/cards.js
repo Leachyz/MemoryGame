@@ -178,6 +178,7 @@ function startGame() {
     	    if(userinfo_mode2.username != null) 
                 username.innerHTML = "Hi, "+userinfo_mode2.username+"! (edit)";
             if(userinfo_mode2.photo != null) userimage.setAttribute("src", userinfo_mode2.photo);
+            usernumMatches.innerHTML = userinfo_mode2.match;
         }
         if(localStorage.player2 === undefined){ 
             	saveEnemyData(enemyinfo);
@@ -186,6 +187,7 @@ function startGame() {
             if(enemyinfo.username != null) 
 			    enemyname.innerHTML = "Hi, "+enemyinfo.username+"! (edit)";
 		    if(enemyinfo.photo != null) enemyimage.setAttribute("src", enemyinfo.photo);
+            enemynumMatches.innerHTML = enemyinfo.match;
 	    }
 		if(supportStorage && localStorage.gamedata_mode2 != undefined){
 			/*console.log(localStorage.gamedata);*/
@@ -211,9 +213,13 @@ var flip = function(ccard){
 			clicked[1].setAttribute("class", "card match");
 		    toMatch--;
 		    if (player_turn==1 && mode==2) {
+		        /*document.querySelector(".player1_info").setAttribute("class", "active");
+		        document.querySelector(".player2_info").setAttribute("class", "inactive");*/
 		        userinfo_mode2.match++;
 		        usernumMatches.innerHTML = userinfo_mode2.match;
 		    }else if(player_turn==2 && mode==2) {
+		        /*document.querySelector(".player2_info").setAttribute("class", "active");
+		        document.querySelector(".player1_info").setAttribute("class", "inactive");*/
 		        enemyinfo.match++;
 		        enemynumMatches.innerHTML = enemyinfo.match;
 		        }
@@ -342,8 +348,6 @@ document.querySelector("#save_game").onclick = function(){
 	    }else if(mode==2){
     /*console.log(cardcontainer.innerHTML);*/
 		    localStorage.gamedata_mode2 = cardcontainer.innerHTML;
-		    userinfo_mode2.match = numMatch2;
-		    enemyinfo.match = numMatch1;
 		    saveUserData(userinfo_mode2);
 		    saveEnemyData(enemyinfo);
 		    alert("You can battle it out next time!\nSave game successful!");
@@ -354,15 +358,16 @@ document.querySelector("#save_game").onclick = function(){
 }
 
 function restart(){
-	userinfo.turn = 24;
 	if(mode == 1){
         localStorage.removeItem("gamedata"); 
-	    localStorage.player.match = 0;
-	    localStorage.player.turn = 24;
+	    userinfo.turn = 24;
+	    saveUserData(userinfo);
 	}else if(mode == 2){
 	    localStorage.removeItem("gamedata_mode2");
-	    localStorage.player1.match = 0;
-	    localStorage.player2.match = 0;
+	    userinfo_mode2.match = 0;
+	    enemyinfo.match = 0;
+	    saveUserData(userinfo_mode2);
+	    saveEnemyData(enemyinfo);
     }
 	
 	
