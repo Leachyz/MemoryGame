@@ -287,9 +287,9 @@ margin: 375 auto;
 width: 15%;
 }
 
-.active {
-background: red !important;
-float: right;
+.my_turn {
+background: red;
+/*float: right;
 height: 305px;
 width: 250px;
 color: white;
@@ -297,12 +297,12 @@ text-align: center;
 border: 1px solid #FFFF66;
 border-radius: 10px;
 clear: right;
-margin-top: 15px;
+margin-top: 15px;*/
 }
 
-.inactive {
-background: #101010 !important;
-float: right;
+.your_turn {
+background: #101010;
+/*float: right;
 height: 305px;
 width: 250px;
 color: white;
@@ -310,7 +310,7 @@ text-align: center;
 border: 1px solid #FFFF66;
 border-radius: 10px;
 clear: right;
-margin-top: 15px;
+margin-top: 15px;*/
 }
 
 
