@@ -5,6 +5,9 @@ var userinfo = {"username": null, "turn": 24, "photo": null};
 var userturn = document.querySelector("#player_turns");
 var userpic = document.querySelector("#pic_instruction");
 var cardcontainer = document.querySelector("#sideBox");
+var num_click = 0;
+var numTurns = 24;
+var toMatch = 8;
 
 function saveData(userinfo){
     if(supportStorage) 
@@ -13,15 +16,17 @@ function saveData(userinfo){
 
 if(typeof(Storage)!==undefined) {
 	supportStorage = true;
-    	if(localStorage.player === undefined) 
+    	if(localStorage.player === undefined){ 
         	saveData(userinfo);
-    	else{
-        	userinfo = JSON.parse(localStorage.player); 
+	}else{
+        	userinfo = JSON.parse(localStorage.player);
+		numTurns = userinfo.turn;
         	if(userinfo.username != null) 
 			username.innerHTML = "Hi, "+userinfo.username+"!";
 		if(userinfo.photo != null) userpic.setAttribute("src", userinfo.photo); 
 	}
 }
+
 function playSound(choice){
     if(choice == 1){ /*alert("OK");*/
         soundElement.setAttribute("src", "/static/sounds/turned.mp3");
@@ -41,9 +46,8 @@ function playSound(choice){
 document.onload = function(){
 	if(userinfo.username != null) 
 		username.innerHTML = userinfo.username;
-	displayTurn(userinfo.turn);
-    	if(userinfo.photo != null) userpic.setAttribute("src", userinfo.photo);   
-   	saveData(userinfo); 
+    	if(userinfo.photo != null) 
+		userpic.setAttribute("src", userinfo.photo);
 }
 
 username.onclick=function(){
@@ -55,20 +59,37 @@ username.onclick=function(){
 }
 
 userpic.onclick=function(){
-	if(userinfo.username != null) 
-		var player = userinfo.username;
-	var photo = prompt(player+ ", please enter url for profile pic.");
-	userinfo.photo = photo;
+	if(userinfo.username != undefined) 
+		var player = userinfo.username,
+	uPhoto = prompt(player+ ", please enter url for profile pic.");
+	else{
+		var photo = prompt("Player, please enter url for profile pic.");
+	}
+	userinfo.photo = uPhoto;
+	if(uPhoto != null) document.querySelector("#player_photo").setAttribute("src", uPhoto);
 	saveData(userinfo);
-	if(photo != null) this.setAttribute("src", photo);
 }
 document.querySelector("#save_game").onclick = function(){
 	if(supportStorage){
+/*console.log(cardcontainer.innerHTML);*/
 		localStorage.gamedata = cardcontainer.innerHTML;
+		localStorage.matches = toMatch;
+		saveData(userinfo);
+		alert("Get 'em next time!\nSave game successful!");
 	}else{
 		alert("Local storage is not available. Try again later.");
 	}
 }
+function restart(){
+	userinfo.turn = 24;
+	localStorage.removeItem("gamedata");
+	localStorage.removeItem("matches");
+	
+	saveData(userinfo);
+	location.reload();
+}
+document.querySelector("#reset_game").onclick =  function(){restart()};
+
 
 
 if (supportStorage && !isNaN(userinfo.turn)) {
@@ -109,12 +130,12 @@ var createDeck = function() {
 	cards[index++] = {rank:ranks[rank_index], suite:suits[suite_index]};
   }
   cards = shuffleCards(cards);
-  console.log(cards.length);
+  /*console.log(cards.length);*/
   return cards;
 }
 
 var showCards = function(cardJSON) {    
-card = document.createElement("p");
+card = document.createElement("div");
 card.innerHTML = "<div class='face-fwd'></div><div class='face-back'><span class='suite'>"+cardJSON.suite+"</span><span class='rank'>"+cardJSON.rank+"</span></div>";
 card.className = "card";
 card.setAttribute ("onclick", "flip(this)");
@@ -130,17 +151,19 @@ var showDeck = function(deck){
     }
 }
 
-if(supportStorage && localStorage.gamedata != undefined){
-	cardcontainer.innerHTML = localStorage.gamedata;
+/*loads saved data*/ 
+if(supportStorage && localStorage.gamedata != undefined && localStorage.matches != undefined){
+	/*console.log(localStorage.gamedata);*/
+	cardcontainer.innerHTML = ""+ 	localStorage.gamedata;
+	toMatch = parseInt(localStorage.matches);
 }else{
 	var deck = createDeck();
 	showDeck(deck);
+		alert("This is a Memory Game - Ramoy style!\nClick a card to view the card then try to find a match.\nYou have 24 moves in which to achieve this.\nHave fun!\n\nNote: Wait 'til cards have flipped back over before choosing another.");
 }
 
 
-var num_click = 0;
-var numTurns = 24;
-var toMatch = 8;
+
 var flip = function(ccard){
 	num_click++;
 	ccard.setAttribute("class", "card click");
@@ -153,6 +176,7 @@ var flip = function(ccard){
 			clicked[0].setAttribute("class", "card match");
 			clicked[1].setAttribute("class", "card match");
 		toMatch--;
+		clicked = [];
 		}else{	
 			setTimeout(function(){
 			playSound(3);
@@ -164,16 +188,17 @@ var flip = function(ccard){
 		numTurns--;		
 		if (numTurns == 0) {
 			alert("Game Over! Start new game.");
-			location.reload();
+			restart();
+			/*alert("Click \"Restart\" to start a new game.");*/
 		}
 		if (toMatch == 0) {
 			playSound(4);
-			setTimeout(function() {alert("Good going, you've won!")}, 1000);
+			setTimeout(function() {alert("Good going, you've won!"); restart();}, 1000);
+			
 		}
 	userinfo.turn = numTurns;
-	savaData(userinfo);
 	userturn.innerHTML = numTurns;
 	}
-	
+	 
 }
 

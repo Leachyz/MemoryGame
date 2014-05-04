@@ -10,13 +10,13 @@ app = Flask(__name__)
 # the App Engine WSGI application server.
 
 
-@app.route('/')
-def hello():
-    """Return a friendly HTTP greeting."""
-    return 'Hello World! <br><br> Sincerely, Lab2'
+#@app.route('/')
+#def hello():
+#    """Return a friendly HTTP greeting."""
+#    return 'Hello World! <br><br> Sincerely, Project2'*/
 
   
-@app.route('/cards')
+@app.route('/')
 def generateDeck():#name=None):
     """Return me template at application /cards URL."""
     return render_template('cards.html')#, name=name)
