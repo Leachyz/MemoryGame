@@ -1,12 +1,11 @@
 var soundElement = document.getElementById("sound");
 var supportStorage = false;
 var username = document.querySelector("#player1_instruction");
-var userinfo = {"username": null, "turn": 24, "photo": null};
 var userturn = document.querySelector("#numTurns1");
 var userpic = document.querySelector("#pic1_instruction");
 var userimage = document.querySelector("#player1_photo");
-var userinfo = {"username": null, "turn": 24, "photo": null};
-var userinfo_mode2 = {"username": null, "photo": null, "match": 0};
+var userinfo = {"username": "Player 1", "turn": 24, "photo": null};
+var userinfo_mode2 = {"username": "Player 1", "photo": null, "match": 0};
 var playr1_info;
 var usernumMatches;
 var enemynumMatches;
@@ -14,7 +13,7 @@ var enemynumMatches;
 var enemyname;
 var enemypic = document.querySelector("#pic2_instruction");
 var enemyimage = document.querySelector("#player2_photo");
-var enemyinfo = {"username": null, "photo": null, "match": 0};
+var enemyinfo = {"username": "Player 2", "photo": null, "match": 0};
 var playr2_info;
 var cardcontainer = document.querySelector("#sideBox");
 var retainer = document.querySelector("#hold_displayOptions");
@@ -80,7 +79,7 @@ function setPlayerMode(pmode) {
 
 function twoPlayerMode() {
     if(mode==2) {		
-	    document.querySelector("#player_details").innerHTML = "<div class='player1_info'><p onclick='changeUsername(this)' id='player1_instruction'>Player 1, click here to set name.</p><div id='photo'><img src='static/default_photo.png' id='player1_photo' /><p id='pic1_instruction' onclick='changeUserImage()'>Click here to change profile pic.</p></div><p id='player1_matches'>Number of matches, <span id='numMatches1'>0</span></p></div>" + "<p id='vs'>VS</p><div class='player2_info'><p onclick='changeEnemyname(this)' id='player2_instruction'>Player 2, click here to set name.</p><div id='enemyPic'><img src='static/default_photo.png' id='player2_photo' /><p id='pic2_instruction' onclick='changeEnemyImage()'>Click here to change profile pic.</p></div><p id='player2_matches'>Number of matches, <span id='numMatches2'>0</span></p>";
+	    document.querySelector("#player_details").innerHTML = "<div class='player1_info'><p onclick='changeUsername(this)' id='player1_instruction'>Player 1, click here to set name.</p><div id='photo'><img src='static/default_photo.png' id='player1_photo' /><p id='pic1_instruction' onclick='changeUserImage()'>Click here to change profile pic.</p></div><p id='player1_matches'>Number of matches, <span id='numMatches1'>0</span></p></div><p id='vs'>VS</p><div class='player2_info'><p onclick='changeEnemyname(this)' id='player2_instruction'>Player 2, click here to set name.</p><div id='enemyPic'><img src='static/default_photo.png' id='player2_photo' /><p id='pic2_instruction' onclick='changeEnemyImage()'>Click here to change profile pic.</p></div><p id='player2_matches'>Number of matches, <span id='numMatches2'>0</span></p>";
     document.querySelector("#player_details").style.display = "block";
     }
 }
@@ -219,13 +218,14 @@ var flip = function(ccard){
 		    clicked[1].setAttribute("class", "card match");
 	        toMatch--;
 	        if (mode==2 && player_turn==1) {
-	            document.querySelector(".player1_info").setAttribute("class", "player1_info my_turn");
-	            document.querySelector(".player2_info").setAttribute("class", "player2_info your_turn");
+	            playr1_info.setAttribute("class", "player1_info my_turn");
+	            playr2_info.setAttribute("class", "player2_info your_turn");
 	            userinfo_mode2.match++;
 	            usernumMatches.innerHTML = userinfo_mode2.match;
 	        }else if(mode==2 && player_turn==2) {
-	            document.querySelector(".player2_info").setAttribute("class", "player2_info my_turn");
-	            document.querySelector(".player1_info").setAttribute("class", "player1_info your_turn");
+	            playr2_info.setAttribute("class", "player2_info my_turn");
+	            playr1_info.setAttribute("class", "player1_info your_turn");
+	            enemyinfo.match++;
 	            enemynumMatches.innerHTML = enemyinfo.match;
 	            }
 	        clicked = [];
@@ -234,14 +234,14 @@ var flip = function(ccard){
 		    playSound(3);
 		    clicked[0].setAttribute("class","card");
 		    clicked[1].setAttribute("class","card");
-	        if (player_turn==1) {
+	        if (mode==2 && player_turn==1) {
 		        player_turn = 2;
-	            document.querySelector(".player2_info").setAttribute("class", "player2_info my_turn");
-	            document.querySelector(".player1_info").setAttribute("class", "player1_info your_turn");
-	        }else if(player_turn==2) {
+	            playr2_info.setAttribute("class", "player2_info my_turn");
+	            playr1_info.setAttribute("class", "player1_info your_turn");
+	        }else if(mode==2 && player_turn==2) {
 		        player_turn = 1;
-	            document.querySelector(".player1_info").setAttribute("class", "player1_info my_turn");
-	            document.querySelector(".player2_info").setAttribute("class", "player2_info your_turn");
+	            playr1_info.setAttribute("class", "player1_info my_turn");
+	            playr2_info.setAttribute("class", "player2_info your_turn");
 		    }
             }, 1000);
 	    }
@@ -271,6 +271,18 @@ var flip = function(ccard){
     userturn.innerHTML = numTurns;
     }  
 }
+
+onload = funtion() {
+    if (supportStorage && userinfo==undefined) {
+        
+       }
+}
+/*document.onload = function(){
+	if(userinfo.username != null) 
+		username.innerHTML = userinfo.username;
+    	if(userinfo.photo != null) 
+		userpic.setAttribute("src", userinfo.photo);
+}*/
 
 
 username.onclick = function(){
