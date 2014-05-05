@@ -187,13 +187,13 @@ var flip = function(ccard){
 		num_click = 0;
 		numTurns--;		
 		if (numTurns == 0) {
-			alert("Game Over! Start new game.");
+			alert("Game Over! "+userinfo.username+", start new game.");
 			restart();
 			/*alert("Click \"Restart\" to start a new game.");*/
 		}
 		if (toMatch == 0) {
 			playSound(4);
-			setTimeout(function() {alert("Good going, you've won!"); restart();}, 1000);
+			setTimeout(function() {alert("Good going, "+userinfo.username+", you've won!"); restart();}, 1000);
 			
 		}
 	userinfo.turn = numTurns;
