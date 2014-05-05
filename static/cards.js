@@ -5,7 +5,7 @@ var userturn = document.querySelector("#numTurns1");
 var userpic = document.querySelector("#pic1_instruction");
 var userimage = document.querySelector("#player1_photo");
 var userinfo = {"username": "Player 1", "turn": 24, "photo": null};
-var userinfo_mode2 = {"username": "Player 1", "photo": null, "match": 0};
+var userinfo_mode2;
 var playr1_info;
 var usernumMatches;
 var enemynumMatches;
@@ -13,7 +13,7 @@ var enemynumMatches;
 var enemyname;
 var enemypic = document.querySelector("#pic2_instruction");
 var enemyimage = document.querySelector("#player2_photo");
-var enemyinfo = {"username": "Player 2", "photo": null, "match": 0};
+var enemyinfo;
 var playr2_info;
 var cardcontainer = document.querySelector("#sideBox");
 var retainer = document.querySelector("#hold_displayOptions");
@@ -153,6 +153,8 @@ function startGame() {
     enemynumMatches = document.querySelector("#numMatches2");
     playr1_info = document.querySelector(".player1_info");
     playr2_info = document.querySelector(".player2_info");
+    userinfo_mode2 = {"username": "Player 1", "photo": null, "match": 0};
+    enemyinfo = {"username": "Player 2", "photo": null, "match": 0};
     if (mode==1) {
 	    /*console.log(localStorage.gamedata);*/
         if(supportStorage && localStorage.player === undefined){ 
@@ -204,6 +206,33 @@ function startGame() {
 	    }
     }
 }
+
+document.onload = function() {
+    if (userinfo.username != null) {
+        username.innerHTML = userinfo.username;
+    }
+    if (userinfo.photo != null) {
+        userimage.setAttribute("src", userinfo.photo);
+    }
+    if (userinfo_mode2.username != null) {
+        username.innerHTML = userinfo_mode2.username;
+    }
+    if (userinfo_mode2.photo != null) {
+        userimage.setAttribute("src", userinfo_mode2.photo);
+    }
+    if (enemyinfo.username != null) {
+        enemyname.innerHTML = enemyinfo.username;
+    }
+    if (enemyinfo.photo != null) {
+        enemyimage.setAttribute("src", enemyinfo.photo);
+    }
+}
+/*document.onload = function(){
+	if(userinfo.username != null) 
+		username.innerHTML = userinfo.username;
+    	if(userinfo.photo != null) 
+		userpic.setAttribute("src", userinfo.photo);
+}*/
 
 var flip = function(ccard){
     num_click++;
@@ -271,18 +300,6 @@ var flip = function(ccard){
     userturn.innerHTML = numTurns;
     }  
 }
-
-onload = funtion() {
-    if (supportStorage && userinfo==undefined) {
-        
-       }
-}
-/*document.onload = function(){
-	if(userinfo.username != null) 
-		username.innerHTML = userinfo.username;
-    	if(userinfo.photo != null) 
-		userpic.setAttribute("src", userinfo.photo);
-}*/
 
 
 username.onclick = function(){
