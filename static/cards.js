@@ -105,11 +105,11 @@ function shuffleCards(o){
 }
 
 var createDeck = function() {
-// based on code from http://www.brainjar.com/js/cards/default2.asp
+  // based on code from http://www.brainjar.com/js/cards/default2.asp
   var ranks = ["A", "2", "3", "4", "5", "6", "7", "8", "9",
                         "10", "J", "Q", "K"];
   var suits = ["♣","<span class='r'>♦</span>","<span class='r'>♥</span>","♠"]; 
- // var j, k, 
+  // var j, k, 
   var index=0;
   var pack_size = 16;
 
